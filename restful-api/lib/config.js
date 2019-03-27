@@ -7,13 +7,15 @@ let environment = {};
 environment.staging = {
   'httpPort': 3000,
   'httpsPort': 3001,
-  'envType': 'staging'
+  'envType': 'staging',
+  'hashingSecret' : 'thisIsStagingSecret'
 };
 
 environment.production = {
   'httpPort': 5000,
   'httpsPort': 5001,
-  'envType': 'production'
+  'envType': 'production',
+  'hashingSecret' : 'thisIsProductionSecret'
 };
 
 let environmentToExport = environment[envType];
