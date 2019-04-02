@@ -1,7 +1,7 @@
 'use strict';
 
 const StringDecoder = require('string_decoder').StringDecoder;
-const handlers = require('./lib/handlers');
+const handlers = require('./routes/handlers');
 const helpers = require('./lib/helpers');
 const ReqHandler = require('./request-handler');
 
@@ -10,7 +10,8 @@ const router = {
   'sample': handlers.sample,
   'ping'  : handlers.ping,
   'users' : handlers.users,
-  'tokens': handlers.tokens
+  'tokens': handlers.tokens,
+  'checks': handlers.checks,
 }
 
 const server = (req, res) => {
@@ -47,16 +48,13 @@ const server = (req, res) => {
       'queryStringObject': queryString,
       'method': method,
       'headers': headers,
-      'payload': helpers.parseJsonToObject(buffer)
+      'payload': helpers.ParseJsonToObject(buffer)
     };
 
     // Rout the request
     chosenHandler(data, (statusCode = 200, payload = {}) => {
       statusCode = typeof(statusCode) === 'number' ? statusCode : 200;
       const payloadString = JSON.stringify(payload);
-
-      // console.log("Status code : ", statusCode);
-      // console.log("Payload : ", payload);
 
       // Return the response
       res.setHeader('Content-Type', 'application/json');

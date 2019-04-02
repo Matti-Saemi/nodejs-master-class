@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const helpers = require('./helpers');
+const Helpers = require('./helpers');
 
 // Container for the module
 const lib = {};
@@ -36,7 +36,7 @@ lib.create = function(dir, file, data, callback) {
 lib.read = function(dir, file, callback) {
   fs.readFile(`${lib.baseDir}${dir}/${file}.json`, 'utf8', (err, data) => {
     if(!err && data) {
-      let parsedData = helpers.parseJsonToObject(data);
+      let parsedData = Helpers.ParseJsonToObject(data);
       callback(false, parsedData);
     } else {
       callback(err, data);

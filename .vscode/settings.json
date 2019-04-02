@@ -1,8 +1,3 @@
 {
-  "files.exclude": {
-    "restful-api/.data/tokens/*.json": "explorerExcludedFiles",
-    "restful-api/.data/users/*.json": "explorerExcludedFiles",
-    "restful-api/.data/test/*.json": "explorerExcludedFiles",
-    ".vscode": "explorerExcludedFiles"
-  }
+  "files.exclude": {}
 }

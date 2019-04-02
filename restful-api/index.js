@@ -6,7 +6,6 @@ const fs = require('fs');
 
 const serverCallback = require('./server');
 const config = require('./lib/config');
-const dataLib = require('./lib/data');
 
 // HTTP Server
 const httpServer = http.createServer((req, res) => {

@@ -3,9 +3,9 @@
 const crypto = require('crypto');
 const config = require('./config');
 
-const helpers = {};
+const Helpers = {};
 
-helpers.hash = function(str) {
+Helpers.Hash = function(str) {
     if(typeof(str) === 'string' && str.trim().length > 0){
         return crypto.createHmac('SHA256', config.hashingSecret).update(str).digest('hex');
     } else {
@@ -13,7 +13,7 @@ helpers.hash = function(str) {
     }
 };
 
-helpers.parseJsonToObject = (str) => {
+Helpers.ParseJsonToObject = (str) => {
     try {
         let obj = JSON.parse(str);
         return obj;
@@ -22,7 +22,7 @@ helpers.parseJsonToObject = (str) => {
     }
 };
 
-helpers.createRandomString = (strLength) => {
+Helpers.CreateRandomString = (strLength) => {
     strLength = typeof(strLength) == 'number' && strLength > 0 ? strLength : false;
     if(strLength) {
         const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -36,4 +36,9 @@ helpers.createRandomString = (strLength) => {
     }
 };
 
-module.exports = helpers;
+
+Helpers.CheckStringInput = (input, minStrLength = 0) => {
+    return typeof(input) === 'string' && input.trim().length > minStrLength ? input : false;
+  }
+
+module.exports = Helpers;
