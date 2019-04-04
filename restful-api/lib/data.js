@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 const path = require('path');
 const Helpers = require('./helpers');
@@ -76,13 +78,27 @@ lib.update = function(dir, file, data, callback) {
 };
 
 // Delete a file
-lib.delete = function(dir, file, callback) {
+lib.delete = (dir, file, callback) => {
   // Unlink the file
   fs.unlink(`${lib.baseDir}${dir}/${file}.json`, (err) => {
     if(!err) {
       callback(false);
     } else {
       callback(err);
+    }
+  });
+};
+
+lib.list = (dir, callback) => {
+  fs.readdir(`${lib.baseDir}dir/`, (err, data) => {
+    if(!err && data && data.length > 0) {
+      let trimmedFileNames = [];
+      data.forEach(filename => {
+        trimmedFileNames.push(filename.replace('.json', ''));
+      });
+      callback(false, trimmedFileNames);
+    } else {
+      callback(err, data);
     }
   });
 };

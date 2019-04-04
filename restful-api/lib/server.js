@@ -1,20 +1,33 @@
 'use strict';
 
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path =  require('path');
 const StringDecoder = require('string_decoder').StringDecoder;
-const handlers = require('./routes/handlers');
-const helpers = require('./lib/helpers');
+
+const handlers = require('../routes/handlers');
+const helpers = require('./helpers');
 const ReqHandler = require('./request-handler');
+const config = require('./config');
 
-// Define a request router
-const router = {
-  'sample': handlers.sample,
-  'ping'  : handlers.ping,
-  'users' : handlers.users,
-  'tokens': handlers.tokens,
-  'checks': handlers.checks,
+const server = {};
+
+// HTTP Server
+server.httpServer = http.createServer((req, res) => {
+  server.serverCallback(req, res);
+});
+
+server.httpsOption = {
+  'key': fs.readFileSync(path.join(__dirname, '/../https/key.pem')),
+  'cert': fs.readFileSync(path.join(__dirname, '/../https/cert.pem'))
 }
+// HTTPS Server
+server.httpsServer = https.createServer(server.httpsOption, (req, res) => {
+  server.serverCallback(req, res);
+});
 
-const server = (req, res) => {
+server.serverCallback = (req, res) => {
   const reqHandlerObj = new ReqHandler(req);
   const parsedUrl = reqHandlerObj.getUrl();
   // console.log("url => ", parsedUrl);
@@ -40,7 +53,7 @@ const server = (req, res) => {
     buffer += decoder.end();
 
     // Choose the handler this request should go to
-    const chosenHandler = typeof(router[trimmedPath]) === 'undefined' ? handlers.notFound : router[trimmedPath];
+    const chosenHandler = typeof(server.router[trimmedPath]) === 'undefined' ? handlers.notFound : server.router[trimmedPath];
 
     // Construct the data object to send to the handler
     const data = {
@@ -62,6 +75,26 @@ const server = (req, res) => {
       res.end(payloadString);
     });
   });
+};
+
+// Define a request router
+server.router = {
+  'sample': handlers.sample,
+  'ping'  : handlers.ping,
+  'users' : handlers.users,
+  'tokens': handlers.tokens,
+  'checks': handlers.checks,
+}
+
+server.init = () => {
+  server.httpServer.listen(config.httpPort, () => {
+    console.log(`Listening to http port ${config.httpPort} in ${config.envType} mode ...`);
+  });
+
+  server.httpsServer.listen(config.httpsPort, () => {
+    console.log(`Listening to https port ${config.httpsPort} in ${config.envType} mode ...`);
+  });
+
 };
 
 module.exports = server;

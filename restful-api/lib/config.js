@@ -10,6 +10,11 @@ environment.staging = {
   'envType': 'staging',
   'hashingSecret' : 'thisIsStagingSecret',
   'maxChecks' : 5,
+  'twilio' : {
+    'accountSid' : 'AC4bb565e781f67276fc96543407765c6c',
+    'authToken' : '5bb0d08180a943b622f7aa7c3e820839',
+    'fromPhone' : '+6584589705'
+  }
 };
 
 environment.production = {
@@ -18,6 +23,11 @@ environment.production = {
   'envType': 'production',
   'hashingSecret' : 'thisIsProductionSecret',
   'maxChecks' : 5,
+  'twilio' : {
+    'accountSid' : '',
+    'authToken' : '',
+    'fromPhone' : '',
+  }
 };
 
 let environmentToExport = environment[envType];
