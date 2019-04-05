@@ -90,7 +90,7 @@ lib.delete = (dir, file, callback) => {
 };
 
 lib.list = (dir, callback) => {
-  fs.readdir(`${lib.baseDir}dir/`, (err, data) => {
+  fs.readdir(`${lib.baseDir}${dir}/`, (err, data) => {
     if(!err && data && data.length > 0) {
       let trimmedFileNames = [];
       data.forEach(filename => {
