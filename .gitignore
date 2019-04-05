@@ -1,4 +1,8 @@
 restful-api/.data/tokens/*.json
 restful-api/.data/users/*.json
 restful-api/.data/test/*.json
+restful-api/.data/checks/*.json
+restful-api/.logs/*.log
+restful-api/.logs/*.gz.*
+
 .vscode

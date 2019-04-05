@@ -5,6 +5,9 @@ const https = require('https');
 const fs = require('fs');
 const path =  require('path');
 const StringDecoder = require('string_decoder').StringDecoder;
+const util = require('util');
+const debug = util.debuglog('workers');
+
 
 const handlers = require('../routes/handlers');
 const helpers = require('./helpers');
@@ -88,11 +91,12 @@ server.router = {
 
 server.init = () => {
   server.httpServer.listen(config.httpPort, () => {
-    console.log(`Listening to http port ${config.httpPort} in ${config.envType} mode ...`);
+    console.log('\x1b[36m%s\x1b[0m',`Listening to http port ${config.httpPort} in ${config.envType} mode ...`);
   });
 
   server.httpsServer.listen(config.httpsPort, () => {
-    console.log(`Listening to https port ${config.httpsPort} in ${config.envType} mode ...`);
+    console.log('\x1b[35m%s\x1b[0m',`Listening to https port ${config.httpsPort} in ${config.envType} mode ...`);
+
   });
 
 };

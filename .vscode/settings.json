@@ -3,6 +3,9 @@
     "restful-api/.data/tokens/*.json": "explorerExcludedFiles",
     "restful-api/.data/users/*.json": "explorerExcludedFiles",
     "restful-api/.data/test/*.json": "explorerExcludedFiles",
+    "restful-api/.data/checks/*.json": "explorerExcludedFiles",
+    "restful-api/.logs/*.log": "explorerExcludedFiles",
+    "restful-api/.logs/*.gz.*": "explorerExcludedFiles",
     ".vscode": "explorerExcludedFiles"
   }
 }
