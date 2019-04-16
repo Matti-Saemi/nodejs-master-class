@@ -6,3 +6,4 @@ restful-api/.logs/*.log
 restful-api/.logs/*.gz.*
 
 .vscode
+.DS_Store
